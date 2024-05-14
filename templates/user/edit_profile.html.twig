@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_start(profile) }}
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_row(profile) }}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info">Edit profile</button>
+                            <button type="reset" class="btn btn-default float-right">Cancel</button>
+                        </div>
+                    </div>
+                    {{ form_end(profile) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block page_header %}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile  {% if app.user.confirmed %}<span class="text-primary"><i class="fa-solid fa-check" title="Your account is confirmed"></i></span>{% endif %}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Edit your profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+{% endblock page_header %}

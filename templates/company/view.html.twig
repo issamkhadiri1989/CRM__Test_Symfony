@@ -1,0 +1,84 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ company.name | upper }}</h3>
+                <div class="card-tools"></div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text text-center text-muted">Employees in the same company</span>
+                                        <span class="info-box-number text-center text-muted mb-0">{{ company.employees | length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text text-center text-muted">Managed by </span>
+                                        <span class="info-box-number text-center text-muted mb-0">{{ company.manager.fullName }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Your network</h4>
+                                {% if company.employees | length == 1 %}
+                                    <span class="text-gray">No one except you in this organization.</span>
+                                {% else %}
+                                    {% for employee in company.employees %}
+                                        {% if app.user is not same as(employee) %}
+                                            <div class="post clearfix">
+                                                <div class="user-block">
+                                            <span class="username">
+                                              <a href="{{ url('app_view_profile', {id: employee.id}) }}">{{ employee.fullName | upper }}</a>
+                                            </span>
+                                                    <span class="description">{{ employee.email }}</span><br/>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block page_header %}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile Detail</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+{% endblock page_header %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .post {
+            border-bottom: unset;
+            margin-bottom: 2px;
+            padding-bottom: 10px;
+        }
+    </style>
+{% endblock %}

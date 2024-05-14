@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <section class="content">
+      <div class="container-fluid">
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-header">
+                      <h3 class="card-title">
+                          {{ profile.fullName | upper }}
+                      </h3>
+                  </div>
+                  <div class="card-body">
+                      <dl class="row">
+                          <dt class="col-sm-4">Full name</dt>
+                          <dd class="col-sm-8">{{ profile.fullName }}</dd>
+
+                          <dt class="col-sm-4">Email</dt>
+                          <dd class="col-sm-8">{{ profile.email }}</dd>
+
+                          <dt class="col-sm-4">Phone</dt>
+                          <dd class="col-sm-8">{{ profile.phone }}</dd>
+
+                          <dt class="col-sm-4">Birth date </dt>
+                          <dd class="col-sm-8">{{ profile.birthDate | date('d M Y')}}</dd>
+
+                          <dt class="col-sm-4">Address </dt>
+                          <dd class="col-sm-8">{{ profile.address }}</dd>
+                      </dl>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+{% endblock content %}
+{% block page_header %}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile Detail</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">View Employee details</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+{% endblock page_header %}

@@ -1,0 +1,15 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+_security_logout:
+    resource: security.route_loader.logout
+    type: service
+
+homepage:
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    path: /
+    defaults:
+        template: 'page/home.html.twig'

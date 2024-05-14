@@ -1,0 +1,52 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="login-box">
+        <div class="card">
+            <div class="card-body login-card-body">
+
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a
+                                href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                               class="form-control"
+                               autocomplete="username" required autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" id="inputPassword" class="form-control"
+                               autocomplete="current-password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

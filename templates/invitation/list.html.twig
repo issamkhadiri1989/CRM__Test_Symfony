@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List of all your current invitations</h3>
+                        </div>
+                        <div class="card-body">
+                            {% if invitations | length == 0 %}
+                                <span class="text-gray">No invitation </span>
+                            {% else %}
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Employee</th>
+                                        <th>Sent</th>
+                                        <th>Status</th>
+                                        <th>Invited to</th>
+                                        <th style="width: 40px">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for invitation in invitations %}
+                                        <tr>
+                                            <td>{{ invitation.id }}.</td>
+                                            <td>{{ invitation.employee.fullName }}</td>
+                                            <td>{{ invitation.sentAt | date('c') }}</td>
+                                            <td>{{ invitation.status.value }}</td>
+                                            <td>{{ invitation.company.name }}</td>
+                                            <td>
+                                                {% if is_granted('CAN_CANCEL_INVITATION', invitation) %}
+                                                    <a href="{{ url('app_remove_invitation', {id: invitation.id}) }}"
+                                                       class="btn btn-danger">Cancel</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block page_header %}
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>View invitations</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+{% endblock page_header %}

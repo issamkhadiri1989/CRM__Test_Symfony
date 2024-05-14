@@ -1,0 +1,76 @@
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item  {% if app.current_route in ['app_invitation', 'app_company_list', 'app_company_new'] %}menu-open{% endif %}">
+                <a href="#"
+                   class="nav-link {% if app.current_route in ['app_invitation', 'app_company_list', 'app_company_new'] %}active{% endif %}">
+                    <i class="fa-regular fa-building"></i>
+                    <p>
+                        Manage companies
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('app_company_list') }}"
+                           class="nav-link {% if app.current_route in ['app_invitation', 'app_company_list'] %}active{% endif %}">
+                            <i class="fa-regular fa-eye"></i>
+                            <p>View all companies</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('app_company_new') }}"
+                           class="nav-link {% if app.current_route == 'app_company_new' %}active{% endif %}">
+                            <i class="fa-solid fa-plus"></i>
+                            <p>New company</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a href="{{ url('app_list_invitations') }}"
+                   class="nav-link {% if app.current_route in ['app_list_invitations'] %}active{% endif %}">
+                    <i class="fa-regular fa-envelope"></i>
+                    <p>
+                        View invitations
+                    </p>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('CAN_VIEW_COMPANY', app.user.company) %}
+            <li class="nav-item">
+                <a href="{{ url('app_company_view', {id: app.user.company.id}) }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        See my network
+                    </p>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a href="{{ url('app_create_admin_user') }}"
+                   class="nav-link {% if app.current_route == 'app_create_admin_user' %}active{% endif %}">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <p>
+                        New admin account
+                    </p>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a href="{{ url('app_timeline') }}" class="nav-link {% if app.current_route == 'app_timeline' %}active{% endif %}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <p>History</p>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
